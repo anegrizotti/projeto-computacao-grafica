@@ -12,11 +12,25 @@ alt = 150;
 function desenhar() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    desenharRetangulo();
-    desenharCirculo();
-    desenharTriangulo();
+    desenharCasinha();
+    //desenharRetangulo();
+    //desenharCirculo();
+    //desenharTriangulo();
 
     requestAnimationFrame(desenhar);
+}
+
+function desenharCasinha() {
+    ctx.fillStyle = "rgb(255, 128, 0)";
+    ctx.save();
+        ctx.translate(x,y);
+        ctx.fillRect(-larg/2, 0, larg, alt)
+        ctx.beginPath();
+        ctx.moveTo(-larg/2, 0);
+        ctx.lineTo(0, -alt);
+        ctx.lineTo(larg/2, 0);
+        ctx.fill();
+    ctx.restore();
 }
 
 function desenharRetangulo() {
@@ -46,7 +60,7 @@ requestAnimationFrame(desenhar); // desenha na tela
 // função que move os desenhos
 document.onkeydown = function (evt) {
     if(evt.keyCode === 38) {
-         y -= 5;
+        y -= 5;
     }
 
     else if(evt.keyCode === 40) {
