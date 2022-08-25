@@ -7,17 +7,54 @@ var
 x = 100,
 y = 100,
 larg = 300,
-alt = 150;
+alt = 150,
+ang = 0;
 
 function desenhar() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    desenharCasinha();
+    desenharComTransform();
+
+    //desenharComRotacao();
+    //desenharCasinha();
     //desenharRetangulo();
     //desenharCirculo();
     //desenharTriangulo();
 
     requestAnimationFrame(desenhar);
+}
+
+function desenharComTransform() {
+    ctx.fillStyle = "yellow";
+    ctx.fillRect(0, 0, 250, 100)
+
+    ctx.transform(1, 0.5, -0.5, 1, 30, 10);
+    ctx.fillStyle = "red";
+    ctx.fillRect(0, 0, 250, 100);
+
+    ctx.transform(1, 0.5, -0.5, 1, 30, 10);
+    ctx.fillStyle = "blue";
+    ctx.fillRect(0, 0, 250, 100);
+}
+
+function desenharComRotacao() {
+    x = 200,
+    y = 100,
+    larg = 10,
+    alt = 10;
+
+    ctx.fillStyle = "rgb(0, 0, 200)";
+    ctx.strokeStyle = "rgb(255, 128, 0)";
+    ctx.lineWidth = 2;
+    ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(ang);
+        ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(50, 0);
+        ctx.stroke();
+        ctx.fillRect(-larg/2, -alt/2, larg, alt);
+    ctx.restore();
 }
 
 function desenharCasinha() {
@@ -59,19 +96,27 @@ requestAnimationFrame(desenhar); // desenha na tela
 
 // função que move os desenhos
 document.onkeydown = function (evt) {
-    if(evt.keyCode === 38) {
+    if(evt.keyCode === 38) { // cima
         y -= 5;
     }
 
-    else if(evt.keyCode === 40) {
+    else if(evt.keyCode === 40) { // baixo
         y += 5;
     }
 
-    else if (evt.keyCode === 37) {
+    else if (evt.keyCode === 37) { // esquerda
         x -= 5;
     }
 
-    else if (evt.keyCode === 39) {
+    else if (evt.keyCode === 39) { // direita
         x += 5;
+    }
+
+    else if (evt.keyCode === 220) { // [
+        ang += 5;
+    }
+
+    else if (evt.keyCode === 221) { // ]
+        ang -= 5;
     }
 }
